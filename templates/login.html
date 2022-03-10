@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!-- Navbar (sit on top) -->
+<div class="w3-top">
+    <div class="w3-bar w3-white w3-card" id="myNavbar">
+      <a href="/" class="w3-bar-item w3-button w3-wide">HO-HO-HO</a>
+      <!-- Right-sided navbar links -->
+      <div class="w3-right w3-hide-small">
+        <a href="/" class="w3-bar-item w3-button">HOME</a>
+        <a href="/login" class="w3-bar-item w3-button"><i class="fas fa-candy-cane"></i> Log in</a>
+        <a href="/signup" class="w3-bar-item w3-button"><i class="fa fa-th"></i> Sign up</a>
+      </div>
+      <!-- Hide right-floated links on small screens and replace them with a menu icon -->
+  
+      <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium" onclick="w3_open()">
+        <i class="fa fa-bars"></i>
+      </a>
+    </div>
+</div>
+
+
+</form>
+
+<!-- Log in Section -->
+<div class="w3-container w3-light-grey" style="padding:128px 16px" id="contact">
+    <h3 class="w3-center">Log in</h3>
+    <p class="w3-center w3-large">Please fill in your username and password to log in:</p>
+    <div style="width: 50%; margin: 0 auto">
+      <form action="/login" method='POST'>
+        <!-- <p><input class="w3-input w3-border" type="text" placeholder="Name" required name="Name"></p>
+        <p><input class="w3-input w3-border" type="text" placeholder="Email" required name="Email"></p>
+        <p><input class="w3-input w3-border" type="text" placeholder="Subject" required name="Subject"></p>
+        <p><input class="w3-input w3-border" type="text" placeholder="Message" required name="Message"></p> -->
+
+        {{form.hidden_tag()}}
+        {{form.username.label}} {{form.username(class="w3-input w3-border")}} <br>
+        {{form.password.label}} {{form.password(class="w3-input w3-border")}} <br>
+        {{form.submit(class="w3-button w3-black")}}
+
+
+
+      </form>
+
+      <div class="flash-error" style='color:brown;'>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                {{ message }}
+            {% endfor %}
+        {% endif %}
+            {% endwith %}
+      </div>
+
+    </div>
+
+  </div>
+
+
+
+
+
+{% endblock %}

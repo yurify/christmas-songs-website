@@ -1,0 +1,105 @@
+{% extends "base.html" %} {% block content %}
+
+<!-- Navbar (sit on top) -->
+<div class="w3-top">
+  <div class="w3-bar w3-white w3-card" id="myNavbar">
+    <a href="/" class="w3-bar-item w3-button w3-wide">HO-HO-HO</a>
+    <!-- Right-sided navbar links -->
+    <div class="w3-right w3-hide-small">
+      <a href="/" class="w3-bar-item w3-button">HOME PAGE</a>
+      <a href="/account/all_songs" class="w3-bar-item w3-button">All songs</a>
+      {% if current_user.is_authenticated %}
+      <a href="/account" class="w3-bar-item w3-button"
+        ><i class="fa fa-user"></i> Hello, {{current_user.username}}!</a
+      >
+      <a href="/logout" class="w3-bar-item w3-button"
+        ><i class="fa fa-sign-in"></i> Log out</a
+      >
+      {% else %}
+      <a href="/login" class="w3-bar-item w3-button"
+        ><i class="fa fa-user"></i> Log in</a
+      >
+      <a href="/signup" class="w3-bar-item w3-button"
+        ><i class="fa fa-th"></i> Sign up</a
+      >
+
+      {% endif %}
+    </div>
+    <!-- Hide right-floated links on small screens and replace them with a menu icon -->
+
+    <a
+      href="javascript:void(0)"
+      class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium"
+      onclick="w3_open()"
+    >
+      <i class="fa fa-bars"></i>
+    </a>
+  </div>
+</div>
+
+<!-- Sidebar on small screens when clicking the menu icon -->
+<nav
+  class="w3-sidebar w3-bar-block w3-black w3-card w3-animate-left w3-hide-medium w3-hide-large"
+  style="display: none"
+  id="mySidebar"
+>
+  <a href="/" class="w3-bar-item w3-button">HOME PAGE</a>
+  <a href="/account/all_songs" class="w3-bar-item w3-button">All songs</a>
+  {% if current_user.is_authenticated %}
+  <a href="/account" class="w3-bar-item w3-button"
+    ><i class="fa fa-user"></i> Hello, {{current_user.username}}!</a
+  >
+  <a href="/logout" class="w3-bar-item w3-button"
+    ><i class="fa fa-sign-in"></i> Log out</a
+  >
+  {% else %}
+  <a href="/login" class="w3-bar-item w3-button"
+    ><i class="fa fa-user"></i> Log in</a
+  >
+  <a href="/signup" class="w3-bar-item w3-button"
+    ><i class="fa fa-th"></i> Sign up</a
+  >
+
+  {% endif %}
+</nav>
+
+<div style="margin-left: 2rem">
+  <h2 style="margin-top: 5rem">
+    Welcome to your account,
+    <b style="color: #0076c4">{{current_user.username}}</b>!
+  </h2>
+
+  <p style="font-size: 1.3rem">The songs you like:</p>
+  <ul style="font-size: 1.2rem">
+    {% for song in current_user.songs %}
+    <li><a href="/song/{{song.id}}">{{song.song_title}}</a></li>
+    {% endfor %}
+  </ul>
+</div>
+
+<script>
+  // Modal Image Gallery
+  function onClick(element) {
+    document.getElementById("img01").src = element.src;
+    document.getElementById("modal01").style.display = "block";
+    var captionText = document.getElementById("caption");
+    captionText.innerHTML = element.alt;
+  }
+
+  // Toggle between showing and hiding the sidebar when clicking the menu icon
+  var mySidebar = document.getElementById("mySidebar");
+
+  function w3_open() {
+    if (mySidebar.style.display === "block") {
+      mySidebar.style.display = "none";
+    } else {
+      mySidebar.style.display = "block";
+    }
+  }
+
+  // Close the sidebar with the close button
+  function w3_close() {
+    mySidebar.style.display = "none";
+  }
+</script>
+{% endblock %}
